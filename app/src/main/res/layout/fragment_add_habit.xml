@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.AddHabitFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/txtName"
+        android:hint="Nama Habit"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/txtDesc"
+        android:hint="Deskripsi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"/>
+
+    <EditText
+        android:id="@+id/txtTarget"
+        android:hint="Target (contoh: 8)"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/txtError"
+        android:textColor="#FF0000"
+        android:visibility="gone"
+        android:text="Error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"/>
+
+    <Button
+        android:id="@+id/btnCreate"
+        android:text="Create Habit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

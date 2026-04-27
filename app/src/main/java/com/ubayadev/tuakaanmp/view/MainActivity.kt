@@ -1,10 +1,7 @@
-package com.ubayadev.tuakaanmp
+package com.ubayadev.tuakaanmp.view
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.ubayadev.tuakaanmp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

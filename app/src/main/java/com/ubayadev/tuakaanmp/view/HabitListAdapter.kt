@@ -24,11 +24,12 @@ class HabitListAdapter(val habitList: ArrayList<Habit>,val viewModel: HabitViewM
         return HabitViewHolder(binding)
     }
 
+
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
         val habit = habitList[position]
         holder.binding.txtHabitName.text = habit.name
         holder.binding.txtDescription.text = habit.description
-        holder.binding.txtProgressRatio.text = "${habit.currentProgress}/${habit.target} gelas"
+        holder.binding.txtProgressRatio.text = "${habit.currentProgress}/${habit.target}"
         holder.binding.progressHabit.max = habit.target
         holder.binding.progressHabit.progress = habit.currentProgress
 
@@ -47,7 +48,9 @@ class HabitListAdapter(val habitList: ArrayList<Habit>,val viewModel: HabitViewM
                 viewModel.updateProgress(habit.id, -1) // Kurang 1 poin
             }
         }
+
     }
+
 
     override fun getItemCount() = habitList.size
 }
