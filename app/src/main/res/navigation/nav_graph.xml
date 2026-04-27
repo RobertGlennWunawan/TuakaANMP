@@ -20,5 +20,14 @@
         android:id="@+id/dashboardFragment"
         android:name="com.ubayadev.tuakaanmp.view.DashboardFragment"
         android:label="Dashboard Screen"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/actionToAddHabit"
+            app:destination="@id/addHabitFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addHabitFragment"
+        android:name="com.ubayadev.tuakaanmp.view.AddHabitFragment"
+        android:label="fragment_add_habit"
+        tools:layout="@layout/fragment_add_habit" />
 </navigation>
