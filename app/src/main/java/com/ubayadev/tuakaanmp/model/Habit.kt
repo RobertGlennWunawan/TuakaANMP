@@ -1,10 +1,16 @@
 package com.ubayadev.tuakaanmp.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "habit")
 data class Habit(
-    val id: Int,
-    val name: String,
-    val description: String,
-    val target: Int,
-    var currentProgress: Int = 0,
-    val iconUrl: String = ""
-)
+    @ColumnInfo(name = "title") var title: String,
+    @ColumnInfo(name = "target") var target: Int,
+    @ColumnInfo(name = "current_progress") var currentProgress: Int,
+    @ColumnInfo(name = "priority") var priority: Int
+) {
+    @PrimaryKey(autoGenerate = true)
+    var id:Int = 0
+}
