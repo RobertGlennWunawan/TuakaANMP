@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
@@ -16,6 +16,7 @@
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
+
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.ubayadev.tuakaanmp.view.DashboardFragment"
@@ -24,10 +25,27 @@
         <action
             android:id="@+id/actionToAddHabit"
             app:destination="@id/addHabitFragment" />
+
+        <!-- POSISINYA HARUS DI SINI: Aksi dipindahkan ke dalam dashboardFragment -->
+        <action
+            android:id="@+id/actionToEditHabit"
+            app:destination="@id/editHabitFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/addHabitFragment"
         android:name="com.ubayadev.tuakaanmp.view.AddHabitFragment"
         android:label="fragment_add_habit"
         tools:layout="@layout/fragment_add_habit" />
+
+    <fragment
+        android:id="@+id/editHabitFragment"
+        android:name="com.ubayadev.tuakaanmp.view.EditHabitFragment"
+        android:label="fragment_edit_habit"
+        tools:layout="@layout/fragment_add_habit">
+        <argument
+            android:name="habitId"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
