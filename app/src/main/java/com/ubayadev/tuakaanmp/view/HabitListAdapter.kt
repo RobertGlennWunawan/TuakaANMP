@@ -27,7 +27,7 @@ class HabitListAdapter(val habitList: ArrayList<Habit>,val viewModel: HabitViewM
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
         val habit = habitList[position]
-        holder.binding.txtHabitName.text = habit.name
+        holder.binding.txtHabitName.text = habit.title
         holder.binding.txtDescription.text = habit.description
         holder.binding.txtProgressRatio.text = "${habit.currentProgress}/${habit.target}"
         holder.binding.progressHabit.max = habit.target

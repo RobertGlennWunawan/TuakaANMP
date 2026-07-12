@@ -7,9 +7,9 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "habit")
 data class Habit(
     @ColumnInfo(name = "title") var title: String,
+    @ColumnInfo(name = "description") var description: String,
     @ColumnInfo(name = "target") var target: Int,
     @ColumnInfo(name = "current_progress") var currentProgress: Int,
-    @ColumnInfo(name = "priority") var priority: Int
 ) {
     @PrimaryKey(autoGenerate = true)
     var id:Int = 0

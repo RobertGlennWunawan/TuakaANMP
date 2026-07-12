@@ -1,46 +1,60 @@
 package com.ubayadev.tuakaanmp.viewmodel
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.ubayadev.tuakaanmp.model.Habit
+import com.ubayadev.tuakaanmp.util.buildDb
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class HabitViewModel : ViewModel() {
+class HabitViewModel(application: Application) : AndroidViewModel(application) {
     val habitsLD = MutableLiveData<ArrayList<Habit>>()
-
-    init {
-        val listHabit = arrayListOf(
-            Habit(1, "Minum Air", "8 gelas sehari", 8, 3),
-            Habit(2, "Jalan Kaki", "10000 langkah", 10000, 2500),
-            Habit(3, "Belajar", "1 jam sehari", 60, 20)
-        )
-        habitsLD.value = listHabit
-    }
-
     fun refresh() {
-        habitsLD.value = habitsLD.value
+        viewModelScope.launch {
+            val db = buildDb(getApplication())
+            val currentHabits = withContext(Dispatchers.IO) {
+                db.habitDao().selectAllHabits()
+            }
+
+            val arrayListHabits = ArrayList(currentHabits)
+            habitsLD.value = arrayListHabits
+        }
     }
 
-    fun addHabit(name: String, desc: String, target: Int) {
-        val list = habitsLD.value ?: arrayListOf()
+    fun addHabit(title: String, desc: String, target: Int) {
+        viewModelScope.launch {
+            val db = buildDb(getApplication())
+            val newHabit = Habit(title, desc, target,0)
 
-        val newId = if (list.isEmpty()) 1 else list.last().id + 1
-        val habit = Habit(newId, name, desc, target, 0)
+            // Simpan ke Room Database secara asinkronus
+            withContext(Dispatchers.IO) {
+                db.habitDao().insertAll(newHabit)
+            }
 
-        list.add(habit)
-        habitsLD.value = list
+            // Refresh tampilan setelah berhasil menambah data
+            refresh()
+        }
     }
 
     fun updateProgress(habitId: Int, value: Int) {
-        val list = habitsLD.value
-        val habit = list?.find { it.id == habitId }
+        viewModelScope.launch {
+            val db = buildDb(getApplication())
 
-        habit?.let {
-            it.currentProgress += value
+            withContext(Dispatchers.IO) {
+                val habit = db.habitDao().selectHabit(habitId)
+                if (habit != null) {
+                    habit.currentProgress += value
+                    if (habit.currentProgress < 0) habit.currentProgress = 0
+                    if (habit.currentProgress > habit.target) habit.currentProgress = habit.target
 
-            if (it.currentProgress < 0) it.currentProgress = 0
-            if (it.currentProgress > it.target) it.currentProgress = it.target
-
-            habitsLD.value = list
+                    db.habitDao().updateHabit(habit)
+                }
+            }
+            refresh()
         }
     }
 }

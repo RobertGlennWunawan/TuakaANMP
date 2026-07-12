@@ -10,7 +10,7 @@ import androidx.room.Update
 interface HabitDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg habit: Habit)
-    @Query("SELECT * FROM habit ORDER BY priority DESC")
+    @Query("SELECT * FROM habit")
     fun selectAllHabits(): List<Habit>
     @Query("SELECT * FROM habit WHERE id = :habitId")
     fun selectHabit(habitId: Int): Habit
