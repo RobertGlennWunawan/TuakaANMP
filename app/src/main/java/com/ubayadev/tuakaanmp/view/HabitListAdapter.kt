@@ -31,6 +31,7 @@ class HabitListAdapter(val habitList: ArrayList<Habit>, val viewModel: HabitView
 
         holder.binding.habit = habit
         holder.binding.listener = this
+
         holder.binding.executePendingBindings()
 
         holder.binding.txtProgressRatio.text = "${habit.currentProgress}/${habit.target}"
@@ -44,6 +45,13 @@ class HabitListAdapter(val habitList: ArrayList<Habit>, val viewModel: HabitView
         }
     }
 
+    override fun onTitleClick(v: View) {
+        val habitId = v.tag?.toString()?.toIntOrNull() ?: return
+
+        val action = DashboardFragmentDirections.actionToEditHabit(habitId)
+        Navigation.findNavController(v).navigate(action)
+    }
+
     override fun getItemCount() = habitList.size
     override fun onButtonPlusClick(v: View, obj: Habit) {
         viewModel.updateProgress(obj.id, 1)
@@ -52,10 +60,5 @@ class HabitListAdapter(val habitList: ArrayList<Habit>, val viewModel: HabitView
         if (obj.currentProgress > 0) {
             viewModel.updateProgress(obj.id, -1)
         }
-    }
-    override fun onTitleClick(v: View) {
-        val habitId = v.tag as? Int ?: return
-        val action = DashboardFragmentDirections.actionToEditHabit(habitId)
-        Navigation.findNavController(v).navigate(action)
     }
 }

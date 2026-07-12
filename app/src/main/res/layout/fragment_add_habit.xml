@@ -1,45 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditText
-        android:id="@+id/txtName"
-        android:hint="Nama Habit"
+    <data>
+        <variable
+            name="habit"
+            type="com.ubayadev.tuakaanmp.model.Habit" />
+        <variable
+            name="submitListener"
+            type="androidx.fragment.app.Fragment" />
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"/>
+        android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/txtDesc"
-        android:hint="Deskripsi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"/>
+        <EditText
+            android:id="@+id/txtName"
+            android:hint="Nama Habit"
+            android:text="@={habit.title}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp" />
 
-    <EditText
-        android:id="@+id/txtTarget"
-        android:hint="Target (contoh: 8)"
-        android:inputType="number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"/>
+        <EditText
+            android:id="@+id/txtDesc"
+            android:hint="Deskripsi"
+            android:text="@={habit.description}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp" />
 
-    <TextView
-        android:id="@+id/txtError"
-        android:textColor="#FF0000"
-        android:visibility="gone"
-        android:text="Error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"/>
+        <EditText
+            android:id="@+id/txtTarget"
+            android:hint="Target (contoh: 8)"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp" />
 
-    <Button
-        android:id="@+id/btnCreate"
-        android:text="Create Habit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtError"
+            android:textColor="#FF0000"
+            android:visibility="gone"
+            android:text="Error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btnCreate"
+            android:text="Create Habit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</layout>

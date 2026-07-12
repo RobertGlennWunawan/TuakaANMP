@@ -10,7 +10,8 @@ data class Habit(
     @ColumnInfo(name = "description") var description: String,
     @ColumnInfo(name = "target") var target: Int,
     @ColumnInfo(name = "current_progress") var currentProgress: Int,
-) {
+    @ColumnInfo(name = "priority") var priority: Int = 3,
+
     @PrimaryKey(autoGenerate = true)
-    var id:Int = 0
-}
+    var id: Int = 0
+)
