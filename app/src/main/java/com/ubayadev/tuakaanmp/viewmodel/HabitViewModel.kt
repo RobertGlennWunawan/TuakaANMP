@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.ubayadev.tuakaanmp.model.Habit
-import com.ubayadev.tuakaanmp.model.HabitDatabase
 import com.ubayadev.tuakaanmp.util.buildDb
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,7 +16,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
 
     fun fetchHabit(habitId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val db = HabitDatabase.buildDatabase(getApplication())
+            val db = buildDb(getApplication())
             val habit = db.habitDao().selectHabit(habitId)
 
             withContext(Dispatchers.Main) {
@@ -28,18 +27,16 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateHabit(habit: Habit) {
         viewModelScope.launch(Dispatchers.IO) {
-            val db = HabitDatabase.buildDatabase(getApplication())
+            val db = buildDb(getApplication())
             db.habitDao().updateHabit(habit)
-
             refresh()
         }
     }
 
     fun addHabit(title: String, desc: String, target: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val db = HabitDatabase.buildDatabase(getApplication())
+            val db = buildDb(getApplication())
             val newHabit = Habit(title, desc, target, 0)
-
             db.habitDao().insertAll(newHabit)
 
             val currentHabits = db.habitDao().selectAllHabits()
@@ -53,7 +50,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
 
     fun refresh() {
         viewModelScope.launch(Dispatchers.IO) {
-            val db = HabitDatabase.buildDatabase(getApplication())
+            val db = buildDb(getApplication())
             val currentHabits = db.habitDao().selectAllHabits()
             val arrayListHabits = ArrayList(currentHabits)
 
@@ -65,7 +62,7 @@ class HabitViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateProgress(habitId: Int, value: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val db = HabitDatabase.buildDatabase(getApplication())
+            val db = buildDb(getApplication())
             val habit = db.habitDao().selectHabit(habitId)
 
             if (habit != null) {

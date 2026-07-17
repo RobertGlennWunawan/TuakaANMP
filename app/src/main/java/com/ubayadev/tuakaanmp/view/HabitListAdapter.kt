@@ -28,21 +28,11 @@ class HabitListAdapter(val habitList: ArrayList<Habit>, val viewModel: HabitView
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
         val habit = habitList[position]
-
         holder.binding.habit = habit
         holder.binding.listener = this
 
         holder.binding.executePendingBindings()
 
-        holder.binding.txtProgressRatio.text = "${habit.currentProgress}/${habit.target}"
-        holder.binding.progressHabit.max = habit.target
-        holder.binding.progressHabit.progress = habit.currentProgress
-
-        if (habit.currentProgress >= habit.target) {
-            holder.binding.txtStatus.text = "Completed"
-        } else {
-            holder.binding.txtStatus.text = "In Progress"
-        }
     }
 
     override fun onTitleClick(v: View) {
